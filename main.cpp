@@ -230,6 +230,45 @@ void getRandomMaxIndex(vector<int> v) {
 	
 }
 
+typedef struct node {
+    int freq;
+    char data;
+    node * left;
+    node * right;
+    
+} node;
+
+node *process(node *n, string s, int depth) {
+    if (s[depth] == '0') {
+        if (n->left) 
+            return process(n->left, s, depth + 1);
+    } else {
+        if (n->right)
+            return process(n->right, s, depth + 1);
+    }
+
+    node *ret = new node;
+    ret->freq = depth;
+    ret->data = n->data;
+    return ret; 
+}
+
+void decode_huff(node *root, string s) {  
+    if (!root) return;
+    string ret = "";
+    while (s.length()) {
+        node *t = process(root, s, 0);
+        char c = t->data;
+        int i = t->freq;
+        
+        s = s.substr(i);
+        
+        ret += c;
+    }
+
+    cout << ret;
+}
+
 int main() {
 	
 	vector<int> capacities = {8, 16, 8, 32, 8};
