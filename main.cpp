@@ -260,9 +260,7 @@ void decode_huff(node *root, string s) {
         node *t = process(root, s, 0);
         char c = t->data;
         int i = t->freq;
-        
         s = s.substr(i);
-        
         ret += c;
     }
 
